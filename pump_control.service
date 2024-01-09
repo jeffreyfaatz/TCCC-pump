@@ -1,0 +1,11 @@
+[Unit]
+Description=Pump Control Service
+After=bluetooth.service  # Adjust this line based on bluetooth
+
+[Service]
+ExecStart=/usr/bin/python3 /path/to/your/script.py  # Adjust the Python version and script path
+Restart=always
+User=pi  # Adjust the user if necessary
+
+[Install]
+WantedBy=multi-user.target
