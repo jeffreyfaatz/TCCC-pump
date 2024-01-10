@@ -1,9 +1,9 @@
 [Unit]
 Description=Pump Control Service
-After=bluetooth.service  # Adjust this line based on bluetooth
+After=bluetooth.target  # bluetooth service
 
 [Service]
-ExecStart=/usr/bin/python3 /TCCC_pump.py  # Adjust the Python version and script path
+ExecStart=/usr/bin/python3 TCCC_pump.py  # Adjust the Python version and script path
 Restart=always
 User=pi  # Adjust the user if necessary
 
