@@ -1,35 +1,31 @@
 import RPi.GPIO as GPIO
 import time
-from pygatt import BLEDevice
 
-# Define GPIO pin for the pump relay
-PUMP_PIN = 17  # Change to the GPIO pin you've connected to the relay
+# Define GPIO pins
+relay_pin = 4
+switch_pin = 17  # Replace 'button_pin' with 'switch_pin'
 
-# Set up GPIO
+# Set GPIO mode
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(PUMP_PIN, GPIO.OUT)
 
-# Bluetooth settings
-REMOTE_MAC_ADDRESS = 'XX:XX:XX:XX:XX:XX'  # Replace with your remote Bluetooth address
-BUTTON_CHAR_UUID = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'  # Replace with your remote button characteristic UUID
-
-def handle_data(sender, data):
-    # Handle button press event
-    if data[0] == 1:
-        GPIO.output(PUMP_PIN, GPIO.HIGH)
-        time.sleep(0.5)
-        GPIO.output(PUMP_PIN, GPIO.LOW)
-        time.sleep(1)
+# Set pin modes
+GPIO.setup(relay_pin, GPIO.OUT)
+GPIO.setup(switch_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Use pull-up resistor
 
 try:
-    device = BLEDevice(REMOTE_MAC_ADDRESS)
-    device.subscribe(BUTTON_CHAR_UUID, callback=handle_data)
-
     while True:
-        time.sleep(1)  # Keep the script running
+        switch_state = GPIO.input(switch_pin) == False  # Check switch state
+
+        print("Switch state:", switch_state)  # Log switch state
+
+        if switch_state:  # Switch is ON
+            GPIO.output(relay_pin, GPIO.HIGH)  # Turn on pump
+            print("Pump activated")
+        else:  # Switch is OFF
+            GPIO.output(relay_pin, GPIO.LOW)  # Turn off pump
+            print("Pump deactivated")
+
+        time.sleep(0.1)  # Short delay for stability
 
 except KeyboardInterrupt:
-    pass
-finally:
-    # Cleanup GPIO on script exit
-    GPIO.cleanup()
+    GPIO.cleanup()  # Clean up GPIO on exit
