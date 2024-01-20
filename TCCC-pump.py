@@ -3,7 +3,7 @@ import time
 
 # Define GPIO pins
 relay_pin = 4
-switch_pin = 17  # Replace 'button_pin' with 'switch_pin'
+switch_pin = 17
 
 # Set GPIO mode
 GPIO.setmode(GPIO.BCM)
