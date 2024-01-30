@@ -3,9 +3,9 @@ Description=Pump Control Service
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/python3 TCCC_pump.py  # Adjust the Python version and script path
+ExecStart=/usr/bin/python3 TCCC_pump.py
 Restart=always
-User=pi  # Adjust the user if necessary
+User=pi
 
 [Install]
 WantedBy=multi-user.target
