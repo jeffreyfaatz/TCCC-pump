@@ -1,3 +1,13 @@
+# Simple arduino sketch that triggers a relay that controls a 12v pump.
+# The pump is part of a Casaulty Care Course that simulates a beating heart 
+# making a training wound bleed. The system is incorporated into tourniquet
+# and pressure dressing training.
+
+# Created by: Jeff Faatz
+# https://github.com/jeffreyfaatz
+# version 1.0
+
+
 import RPi.GPIO as GPIO
 import time
 
